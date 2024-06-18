@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Customer } from '../../_model/customer';
 import { Router } from '@angular/router';
-import { Observable, tap, map } from 'rxjs';
+import { Observable, tap, map, throwError, catchError } from 'rxjs';
 import { LoginUser } from '../../_model/loginUser';
 import { RegisterUser } from '../../_model/regiterUser';
 
@@ -91,6 +91,17 @@ export class MasterService {
 
   checkUsernameExists(username: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl}/checkUsername/${username}`);
+  }
+
+   
+  checkEmailExists(email: string): Observable<boolean> {
+    const url = `${this.apiUrl}/check-email/${email}`;
+    return this.http.get<boolean>(url).pipe(
+      catchError((error) => {
+        console.error('Error checking email existence', error);
+        return throwError(error);
+      })
+    );
   }
 
 }
