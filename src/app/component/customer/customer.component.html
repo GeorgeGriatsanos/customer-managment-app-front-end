@@ -1,0 +1,34 @@
+<mat-card>
+    <mat-card-header>
+      <h2></h2>
+      <br>
+      <button [routerLink]="['/customer-add']" [queryParams]="{ isCreation: true }" mat-raised-button color="primary">Προσθήκη Πελάτη</button>
+      <div class="logout-container">
+        <button [routerLink]="['/login']" mat-button color="accent">Εξοδος</button>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <table mat-table matSort [dataSource]="datasource">
+        <ng-container matColumnDef="{{innercolumn}}" *ngFor="let innercolumn of displayColumns">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>{{ columnNames[innercolumn] }}</th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="innercolumn!=='action'"></span>
+            <div *ngIf="innercolumn=='action'">
+              <button (click)="editCustomer(element.id)"  mat-button color="primary">Επεξεργασία</button>
+              <button (click)="deleteCustomer(element.id)" mat-button color="warn">Διαγραφή</button>
+            </div>
+            {{ element[innercolumn] }}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+      </table>
+    </mat-card-content>
+    <mat-card-footer>
+        <mat-paginator [pageSizeOptions]="[5,10,50]" showFirstLastButtons>
+
+        </mat-paginator>
+    </mat-card-footer>
+  </mat-card>
+  
+  
+  

@@ -1,0 +1,83 @@
+<form [formGroup]="myForm" (ngSubmit)="saveCustomer()">
+    <mat-card>
+        <mat-card-header>
+            <h1>{{pageTitle}}</h1> 
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field>
+                <mat-label>Όνομα</mat-label>
+                <input matInput formControlName="firstname" />
+                <mat-error *ngIf="myForm.get('firstname')?.hasError('required')">
+                  Το όνομα είναι υποχρεωτικό
+                </mat-error>
+                <mat-error *ngIf="myForm.get('firstname')?.hasError('lettersOnly')">
+                  Το όνομα πρέπει να περιέχει μόνο γράμματα
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Επώνυμο</mat-label>
+                <input matInput formControlName="lastname"/>
+                <mat-error *ngIf="myForm.get('lastname')?.hasError('required')">
+                  Το επώνυμο είναι υποχρεωτικό
+                </mat-error>               
+                <mat-error *ngIf="myForm.get('lastname')?.hasError('lettersOnly')">
+                  Το επώνυμο πρέπει να περιέχει μόνο γράμματα
+                </mat-error>
+              </mat-form-field>
+            <mat-form-field>
+                <mat-label>ΑΦΜ</mat-label>
+                <input matInput formControlName="taxIdNumber" />
+                <mat-error *ngIf="myForm.get('taxIdNumber')?.hasError('numberOnly')">
+                  Το ΑΦΜ πρέπει να είναι ακριβώς 10 ψηφία και να μην περιέχει γράμματα
+                </mat-error>
+            </mat-form-field>
+            
+            <mat-form-field>
+                <mat-label>Ηλεκτρονική Διεύθυνση</mat-label>
+                <input matInput formControlName="email"/>
+                <mat-error *ngIf="myForm.get('email')?.hasError('email') && myForm.get('email')?.touched">
+                  Μη έγκυρη ηλεκτρονική διεύθυνση
+                </mat-error>
+              </mat-form-field>
+            <mat-form-field>
+                <mat-label>Τηλέφωνο</mat-label>
+                <input matInput formControlName="phoneNumber" />
+                <mat-error *ngIf="myForm.get('phoneNumber')?.hasError('numberOnly')">
+                  Το τηλέφωνο πρέπει να είναι ακριβώς 10 ψηφία και να μην περιέχει γράμματα
+                </mat-error>
+              </mat-form-field>
+            <mat-form-field>
+                <mat-label>Πόλη</mat-label>
+                <input matInput formControlName="city"/>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Διεύθυνση</mat-label>
+                <input matInput formControlName="address"/>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Ημερομηνία Παραγγελίας</mat-label>
+                <input matInput formControlName="orderDate"/>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Ημερομηνία Παράδοσης</mat-label>
+                <input matInput formControlName="deliveryDate"/>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Προκαταβόλη</mat-label>
+                <input matInput formControlName="paymentInAdvance" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Συνολικό Ποσό</mat-label>
+                <input matInput formControlName="totalAmount" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Υπόλοιπο</mat-label>
+                <input matInput formControlName="balance" />
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-footer>
+            <button type="submit" mat-raised-button color="primary">Αποθήκευση</button>
+            <a routerLink="/customer/all" mat-raised-button color="accent">Κλείσιμο</a>
+        </mat-card-footer>    
+    </mat-card>
+</form>

@@ -1,0 +1,42 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./login.component.css">
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <form (ngSubmit)="onSubmit()">
+        <h3>Login Here</h3>
+
+        <label for="username">Username</label>
+        <input id="username" [(ngModel)]="username" name="username" required />
+
+        <label for="password">Password</label>
+        <input
+            id="password"
+            type="password"
+            [(ngModel)]="password"
+            name="password"
+            required
+        />
+
+        <button type="submit">Σύνδεση</button>
+        <p>
+            <span>Δεν έχετε λογαριασμό;</span>
+            <button type="button" class="btn-signup" (click)="redirectToSignUp()">
+                Εγγραφή
+            </button>
+        </p>
+    </form>
+</body>
+
+
+
