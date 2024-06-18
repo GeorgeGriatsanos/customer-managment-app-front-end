@@ -20,7 +20,7 @@ export class MasterService {
   }
 
   createCustomer(customer: Customer): Observable<Customer> {
-    console.log('masterSevice - customer: ', customer);
+   
     return this.http
       .post<Customer>('http://localhost:8080/api/customer/add', customer)
       .pipe(

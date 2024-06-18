@@ -7,6 +7,7 @@ import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
+  ValidationErrors,
   ValidatorFn,
   Validators,
 } from '@angular/forms';
@@ -75,16 +76,15 @@ export class AddcustomerComponent implements OnInit {
     firstname: ['', Validators.required],
     lastname: ['', Validators.required],
     email: ['', [Validators.email]],
-    phoneNumber: [''],
+    phoneNumber: ['', [this.numberOnlyValidator()]],
     city: [''],
     address: [''],
-    orderDate: [''],
-    deliveryDate: [''],
-    paymentInAdvance: ['',],
-    totalAmount: ['', ],
-    balance: ['',],
+    orderDate: ['', [this.formatDateValidator()]],
+    deliveryDate: ['', [this.formatDateValidator()]],
+    paymentInAdvance: [''],
+    totalAmount: [''],
+    balance: [''],
   });
-  
 
   saveCustomer() {
     if (this.myForm.valid) {
@@ -117,7 +117,7 @@ export class AddcustomerComponent implements OnInit {
           userId: userId,
           orderNumber: '',
         };
-        console.log('customerPayload: ', customerPayload);
+
         this.store.dispatch(updateCustomer({ inputdata: customerPayload }));
       } else {
         this.store.dispatch(addCustomer({ inputdata: _obj }));
@@ -132,5 +132,16 @@ export class AddcustomerComponent implements OnInit {
     };
   }
 
+  formatDateValidator(): ValidatorFn {
+    const dateRegex = /^\d{2}-\d{2}-\d{4}$/;
+
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null; // If the value is empty, don't validate it
+      }
+      const forbidden = !dateRegex.test(control.value);
+      return forbidden ? { invalidFormat: { value: control.value } } : null;
+    };
+  }
   
 }

@@ -36,19 +36,23 @@ export class RegisterComponent {
       email: this.email,
     };
 
-    this.masterService.checkEmailExists(this.email).subscribe(
-      (emailExists) => {
-        if (emailExists) {
-          alert('Το email χρησιμοποιείται ήδη. Παρακαλώ χρησιμοποιήστε διαφορετικό email.');
-        } else {
-          // Email is available, proceed with username check and registration as before
+    if (this.email) {
+      this.masterService.checkEmailExists(this.email).subscribe(
+        (emailExists) => {
+          if (emailExists) {
+            alert(
+              'Το email χρησιμοποιείται ήδη. Παρακαλώ χρησιμοποιήστε διαφορετικό email.'
+            );
+          } else {
+            // Email is available, proceed with username check and registration as before
+          }
+        },
+        (error) => {
+          console.error('Error checking email availability', error);
+          alert('An error occurred while checking email availability');
         }
-      },
-      (error) => {
-        console.error('Error checking email availability', error);
-        alert('An error occurred while checking email availability');
-      }
-    );
+      );
+    }
 
     // Check if the username already exists
     this.masterService.checkUsernameExists(this.username).subscribe(

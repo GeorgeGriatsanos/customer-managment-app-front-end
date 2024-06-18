@@ -43,7 +43,7 @@
                 <mat-label>Τηλέφωνο</mat-label>
                 <input matInput formControlName="phoneNumber" />
                 <mat-error *ngIf="myForm.get('phoneNumber')?.hasError('numberOnly')">
-                  Το τηλέφωνο πρέπει να είναι ακριβώς 10 ψηφία και να μην περιέχει γράμματα
+                  Το τηλέφωνο δεν μπορεί να περιέχει γράμματα
                 </mat-error>
               </mat-form-field>
             <mat-form-field>
@@ -57,10 +57,16 @@
             <mat-form-field>
                 <mat-label>Ημερομηνία Παραγγελίας</mat-label>
                 <input matInput formControlName="orderDate"/>
+                <mat-error *ngIf="myForm.get('orderDate')?.hasError('invalidFormat')">
+                 Η Ημερομηνία πρέπει να έχει την μορφή: "dd-mm-yyyy"
+                </mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Ημερομηνία Παράδοσης</mat-label>
                 <input matInput formControlName="deliveryDate"/>
+                <mat-error *ngIf="myForm.get('deliveryDate')?.hasError('invalidFormat')">
+                  Η Ημερομηνία πρέπει να έχει την μορφή: "dd-mm-yyyy"
+                 </mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Προκαταβόλη</mat-label>
